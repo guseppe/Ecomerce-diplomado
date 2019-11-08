@@ -11,6 +11,8 @@ import com.example.ecomerce_diplomado.data.Result;
 import com.example.ecomerce_diplomado.data.model.LoggedInUser;
 import com.example.ecomerce_diplomado.R;
 
+import javax.security.auth.login.LoginException;
+
 public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
