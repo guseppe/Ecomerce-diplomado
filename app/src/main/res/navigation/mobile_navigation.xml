@@ -40,4 +40,11 @@
         android:name="com.example.ecomerce_diplomado.ui.send.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:label="@string/menu_category"
+        android:name="com.example.ecomerce_diplomado.ui.category.CategoryFragment"
+        tools:layout="@layout/fragment_category" />
+
 </navigation>
