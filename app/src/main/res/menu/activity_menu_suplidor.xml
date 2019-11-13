@@ -34,6 +34,7 @@
                 android:title="Perfil"/>
             <item
                 android:id="@+id/nav_logout"
+                android:onClick="logout"
                 android:icon="@drawable/ic_menu_logout"
                 android:title="Cerrar sesión "/>
         </menu>
