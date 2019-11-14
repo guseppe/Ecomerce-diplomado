@@ -15,9 +15,9 @@ public class CategoryViewModel extends ViewModel {
     public CategoryViewModel() {
         mCategories = new MutableLiveData<>();
         List<Category> categoryList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+       /* for (int i = 0; i < 4; i++) {
             categoryList.add(new Category(i,"Category"+i, "ic_menu_camera"));
-        }
+        }*/
         mCategories.setValue(categoryList);
     }
 
@@ -25,8 +25,13 @@ public class CategoryViewModel extends ViewModel {
         return mCategories;
     }
 
-    public void addCategory(){
-        mCategories.getValue().add(new Category(4,"Category4", "ic_menu_camera"));
+    public void addCategory(String name,String photo){
+        mCategories.getValue().add(new Category(4,name, photo));
+        mCategories.postValue(mCategories.getValue());
+    }
+
+    public void removeCategory(Category category){
+        mCategories.getValue().remove(category);
         mCategories.postValue(mCategories.getValue());
     }
 }

@@ -15,6 +15,21 @@
         android:id="@+id/nav_category"
         android:label="@string/menu_category"
         android:name="com.example.ecomerce_diplomado.ui.category.CategoryFragment"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_nav_category_to_categoryFragmentManager"
+            app:destination="@id/categoryFragmentManager"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragmentManager"
+        android:name="com.example.ecomerce_diplomado.ui.category.CategoryFragmentManager"
+        android:label="@string/menu_category"
+        tools:layout="@layout/fragment_category_manager" >
+        <action
+            android:id="@+id/action_categoryFragmentManager_to_nav_category"
+            app:destination="@id/nav_category"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
 
 </navigation>
