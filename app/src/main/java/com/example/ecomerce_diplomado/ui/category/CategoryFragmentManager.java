@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.example.ecomerce_diplomado.R;
+import com.example.ecomerce_diplomado.data.model.Category;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -36,12 +37,18 @@ public class CategoryFragmentManager extends Fragment {
     private static final int PICK_IMAGE = 123;
     private Uri uri;
     private ContentResolver contentResolver;
+    private final String CATEGORY = "CATEGORY";
+    private Category element;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         categoryViewModel = ViewModelProviders.of(getActivity()).get(CategoryViewModel.class);
         contentResolver = getActivity().getContentResolver();
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            element = bundle.getParcelable(CATEGORY);
+        }
     }
 
     @Override
@@ -58,11 +65,20 @@ public class CategoryFragmentManager extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(element != null){
+            name.setText(element.getName());
+        }
         back.setOnClickListener(v->{
             Navigation.findNavController(view).navigate(R.id.action_categoryFragmentManager_to_nav_category);
         });
         save.setOnClickListener(v->{
-            categoryViewModel.addCategory(name.getText().toString(),"ic_menu_camera");
+            if(element ==null){
+                categoryViewModel.addCategory(name.getText().toString(),"ic_menu_camera");
+            }
+            else{
+                element.setName(name.getText().toString());
+                categoryViewModel.updateCategory(element);
+            }
             Navigation.findNavController(view).navigate(R.id.action_categoryFragmentManager_to_nav_category);
         });
         profile.setOnClickListener(v->{

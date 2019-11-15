@@ -3,25 +3,26 @@ package com.example.ecomerce_diplomado.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Category implements Parcelable {
-    private int id;
+public class Product implements Parcelable {
+    private String productCode;
+    private String productName;
+    private int categoryId;
     private int userId;
-    private String name;
+    private double price;
     private long createdAt;
     private long updatedAt;
     private boolean active;
     private String photo;
     private int token;
+    private int id;
 
-    public Category() {
-    }
-    public Category(int id,String name,String photo) {
+
+    public Product(int id, String productName, String foto, String productCode, Double price){
+        this.productName = productName;
+        this.productCode = productCode;
+        this.photo = foto;
         this.id = id;
-        this.name = name;
-        this.photo = photo;
-    }
-    public Category(int id) {
-        this.id = id;
+        this.price = price;
     }
 
     public int getId() {
@@ -32,6 +33,30 @@ public class Category implements Parcelable {
         this.id = id;
     }
 
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public int getUserId() {
         return userId;
     }
@@ -40,12 +65,12 @@ public class Category implements Parcelable {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public double getPrice() {
+        return price;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public long getCreatedAt() {
@@ -97,18 +122,18 @@ public class Category implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
 
     }
-    public static final Parcelable.Creator<Category> CREATOR
-            = new Parcelable.Creator<Category>() {
-        public Category createFromParcel(Parcel in) {
-            return new Category(in);
+    public static final Parcelable.Creator<Product> CREATOR
+            = new Parcelable.Creator<Product>() {
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
         }
 
-        public Category[] newArray(int size) {
-            return new Category[size];
+        public Product[] newArray(int size) {
+            return new Product[size];
         }
     };
     private int mData;
-    private Category(Parcel in) {
+    private Product(Parcel in) {
         mData = in.readInt();
     }
 }

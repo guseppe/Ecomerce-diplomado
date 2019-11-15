@@ -26,12 +26,27 @@ public class CategoryViewModel extends ViewModel {
     }
 
     public void addCategory(String name,String photo){
-        mCategories.getValue().add(new Category(4,name, photo));
+        mCategories.getValue().add(new Category(getNextid(),name, photo));
+        mCategories.postValue(mCategories.getValue());
+    }
+    public void updateCategory(Category category){
+        Category ucat = mCategories.getValue().get(category.getId()-1);
+        mCategories.getValue().remove(ucat);
+        ucat.setName(category.getName());
+        mCategories.getValue().add(ucat);
         mCategories.postValue(mCategories.getValue());
     }
 
     public void removeCategory(Category category){
         mCategories.getValue().remove(category);
         mCategories.postValue(mCategories.getValue());
+    }
+    private int getNextid(){
+        int nextid = 1;
+        List<Category> categoryList = mCategories.getValue();
+        if(!categoryList.isEmpty()){
+            nextid = categoryList.size() + 1;
+        }
+        return  nextid;
     }
 }

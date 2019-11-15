@@ -31,5 +31,10 @@
             app:destination="@id/nav_category"
             app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_product"
+        android:name="com.example.ecomerce_diplomado.ui.product.ProductFragment"
+        android:label="Productos"
+        tools:layout="@layout/fragment_product" />
 
 </navigation>

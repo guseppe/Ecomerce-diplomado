@@ -44,7 +44,7 @@
     <string name="action_search">Buscar</string>
     <string name="action_notifications">Notificaciones</string>
     <string name="action_cart">Carrito</string>
-    <string name="action_manager">Configurar</string>
+    <string name="action_manager">Editar</string>
     <string name="action_delete">Eliminar</string>
 
 

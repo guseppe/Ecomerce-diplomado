@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.5"/>
 
     <ImageView
-        android:id="@+id/action"
+        android:id="@+id/config"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_setting_btn"
