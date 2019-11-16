@@ -70,7 +70,7 @@
                     android:layout_marginTop="10dp"
                     android:id="@+id/manager"
                     android:text="@string/save"
-                    style="@style/AppTheme.RoundedCornerMaterialButton"
+                    style="@style/AppTheme.RoundedCornerMaterialButtonAdmin"
                     android:textSize="15sp"/>
 
                 <TextView
@@ -91,7 +91,7 @@
                     android:layout_marginTop="10dp"
                     android:id="@+id/back"
                     android:text="@string/back"
-                    style="@style/AppTheme.RoundedCornerMaterialButton"
+                    style="@style/AppTheme.RoundedCornerMaterialButtonAdmin"
                     android:textSize="15sp"/>
 
             </LinearLayout>

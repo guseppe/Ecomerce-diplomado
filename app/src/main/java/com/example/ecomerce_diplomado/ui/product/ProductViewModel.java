@@ -16,7 +16,7 @@ public class ProductViewModel extends ViewModel {
         mProducts = new MutableLiveData<List<Product>>();
         List<Product> productList = new ArrayList<Product>();
          for (int i = 1; i < 5; i++) {
-            productList.add(new Product(i,"product"+i,"ic_menu_action_shopping_cart", "code"+i,1500.00));
+            productList.add(new Product(i,"product"+i,"ic_menu_product", "code"+i,1500.00));
          }
          mProducts.setValue(productList);
     }
@@ -28,11 +28,7 @@ public class ProductViewModel extends ViewModel {
         mProducts.getValue().add(new Product(getNextid(),name, photo,productCode,price));
         mProducts.postValue(mProducts.getValue());
     }
-    public void updateProduct(Product product){
-        Product upro = mProducts.getValue().get(product.getId()-1);
-        mProducts.getValue().remove(upro);
-        upro.setProductName(product.getProductName());
-        mProducts.getValue().add(upro);
+    public void updateProductNotify(){
         mProducts.postValue(mProducts.getValue());
     }
 

@@ -29,11 +29,7 @@ public class CategoryViewModel extends ViewModel {
         mCategories.getValue().add(new Category(getNextid(),name, photo));
         mCategories.postValue(mCategories.getValue());
     }
-    public void updateCategory(Category category){
-        Category ucat = mCategories.getValue().get(category.getId()-1);
-        mCategories.getValue().remove(ucat);
-        ucat.setName(category.getName());
-        mCategories.getValue().add(ucat);
+    public void updateCategoryNotify(){
         mCategories.postValue(mCategories.getValue());
     }
 

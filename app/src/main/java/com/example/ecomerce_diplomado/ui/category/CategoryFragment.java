@@ -39,7 +39,7 @@ public class CategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private CategoryRecyclerViewAdapter categoryAdapter;
     private Context context;
-    private final String CATEGORY = "CATEGORY";
+    private static final String CATEGORY = "CATEGORY";
 
     public static CategoryFragment newInstance() {
         return new CategoryFragment();
@@ -84,7 +84,7 @@ public class CategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-         categoryAdapter.setOnItemTouchListener(new OnItemTouchListener<Category>() {
+        categoryAdapter.setOnItemTouchListener(new OnItemTouchListener<Category>() {
             @Override
             public void onClick(Category element) {
                 Snackbar.make(getView(),  element.getName(), Snackbar.LENGTH_LONG)

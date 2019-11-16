@@ -77,7 +77,7 @@ public class CategoryFragmentManager extends Fragment {
             }
             else{
                 element.setName(name.getText().toString());
-                categoryViewModel.updateCategory(element);
+                categoryViewModel.updateCategoryNotify();
             }
             Navigation.findNavController(view).navigate(R.id.action_categoryFragmentManager_to_nav_category);
         });
