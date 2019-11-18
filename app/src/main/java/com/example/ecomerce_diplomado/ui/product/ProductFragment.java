@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,15 +48,17 @@ public class ProductFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_product, container, false);
-        /*fab = view.findViewById(R.id.fab);
+        fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(v->{
-            Navigation.findNavController(view).navigate();
-        });*/
+            Navigation.findNavController(view).navigate(R.id.action_nav_product_to_productFragmentManager);
+        });
         View root = view.findViewById(R.id.product_recycler_view);
         if (root instanceof RecyclerView) {
             Context context = root.getContext();
             RecyclerView recyclerView = (RecyclerView) root;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
+           /* recyclerView.setHasFixedSize(true); //para que no se descuadre cuando hay muchos datos, pendiente probar
+            recyclerView.setItemAnimator(new DefaultItemAnimator()); //se desaparece animacion por defecto*/
             recyclerView.setAdapter(productAdapter);
             productViewModel.getProducts().observe(this, productList-> {
                 productAdapter.refreshProductList(productList);
@@ -82,7 +85,7 @@ public class ProductFragment extends Fragment {
                             case R.id.action_manager:
                                 Bundle bundle = new Bundle();
                                 bundle.putParcelable(PRODUCT, element);
-                                //Navigation.findNavController(view).navigate(R.id.action_nav_category_to_categoryFragmentManager,bundle);
+                                Navigation.findNavController(view).navigate(R.id.action_nav_product_to_productFragmentManager,bundle);
                                 return true;
                             case R.id.action_delete:
                                 delete(element);

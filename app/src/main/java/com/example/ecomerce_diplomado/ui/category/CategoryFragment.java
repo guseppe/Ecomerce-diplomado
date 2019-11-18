@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -65,12 +67,14 @@ public class CategoryFragment extends Fragment {
         if (root instanceof RecyclerView) {
             Context context = root.getContext();
             recyclerView = (RecyclerView) root;
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                mColumnCount = 3;
+            }
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-
             recyclerView.setAdapter(categoryAdapter);
             categoryViewModel.getCategories().observe(this, categoryList-> {
                 categoryAdapter.refreshCategoryList(categoryList);
