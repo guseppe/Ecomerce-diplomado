@@ -3,6 +3,7 @@ package com.example.ecomerce_diplomado.ui.product;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -101,6 +102,16 @@ public class ProductFragment extends Fragment {
     }
 
     private void delete(Product element) {
+        AlertDialog.Builder confirmacion = new AlertDialog.Builder(context)
+                .setTitle("Confirmación de eliminación")
+                .setMessage("Está a punto de eliminar un registro, Desea continuar?")
+                .setPositiveButton("Si",(dialog,id)->{
+                    productViewModel.removeProduct(element);
+                })
+                .setNegativeButton("No",(dialog,id)->{
+                    dialog.cancel();
+                });
+                confirmacion.show();
     }
 
 

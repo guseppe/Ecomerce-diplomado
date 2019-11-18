@@ -17,12 +17,13 @@ public class Product implements Parcelable {
     private int id;
 
 
-    public Product(int id, String productName, String foto, String productCode, Double price){
+    public Product(int id, String productName, String foto, String productCode, Double price, int categoryId){
         this.productName = productName;
         this.productCode = productCode;
         this.photo = foto;
         this.id = id;
         this.price = price;
+        this.categoryId = categoryId;
     }
 
     public int getId() {

@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_item_code"
                     android:inputType="text"
+                    android:textColor="@color/darkWhite"
                     android:maxLines="1"
                     android:singleLine="true"/>
 
@@ -64,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_item_name"
                     android:inputType="text"
+                    android:textColor="@color/darkWhite"
                     android:maxLines="1"
                     android:singleLine="true"/>
 
@@ -77,8 +79,9 @@
                     android:id="@+id/price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_item_name"
+                    android:hint="@string/prompt_price"
                     android:inputType="numberDecimal"
+                    android:textColor="@color/darkWhite"
                     android:maxLines="1"
                     android:singleLine="true"/>
 
@@ -91,6 +94,7 @@
                 <Spinner
                     android:id="@+id/category"
                     android:layout_width="fill_parent"
+                    android:textColor="@color/darkWhite"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
