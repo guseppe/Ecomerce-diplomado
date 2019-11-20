@@ -37,7 +37,7 @@ public class CategoryViewModel extends ViewModel {
         mCategories.getValue().remove(category);
         mCategories.postValue(mCategories.getValue());
     }
-    private int getNextid(){
+    public int getNextid(){
         int nextid = 1;
         List<Category> categoryList = mCategories.getValue();
         if(!categoryList.isEmpty()){
