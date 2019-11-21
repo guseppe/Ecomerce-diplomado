@@ -50,12 +50,15 @@
 
     <string name="save">Guardar</string>
     <string name="back">Volver</string>
+    <string name="please_wait">Por Favor Espere...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prompt_item_code">Código Producto</string>
     <string name="prompt_item_name">Descripción</string>
     <string name="prompt_price">Precio</string>
+
+
 
 
 </resources>

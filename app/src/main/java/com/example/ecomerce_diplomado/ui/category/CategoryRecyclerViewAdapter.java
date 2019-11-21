@@ -1,6 +1,8 @@
 package com.example.ecomerce_diplomado.ui.category;
 
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import com.example.ecomerce_diplomado.R;
 import com.example.ecomerce_diplomado.data.model.Category;
 import com.example.ecomerce_diplomado.listener.OnItemTouchListener;
 import com.example.ecomerce_diplomado.listener.OptionsMenuListener;
+import com.example.ecomerce_diplomado.services.FirebaseService;
 
 import java.util.List;
 
@@ -24,7 +27,7 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     private  List<Category> _categoryList;
     private OptionsMenuListener optionsMenuListener;
     private OnItemTouchListener onItemTouchListener;
-
+    private Context context;
 
 
     public CategoryRecyclerViewAdapter(List<Category> categoryList) {
@@ -37,14 +40,23 @@ public class CategoryRecyclerViewAdapter extends RecyclerView.Adapter<CategoryRe
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_category, parent, false);
+        context = view.getContext();
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(_categoryList.get(position).getName());
-        holder.avatar.setImageURI(Uri.parse("android.resource://com.example.ecomerce_diplomado/drawable/"+_categoryList.get(position).getPhoto()));
         final Category element = _categoryList.get(position);
+        holder.name.setText(element.getName());
+        //holder.avatar.setImageURI(Uri.parse("android.resource://com.example.ecomerce_diplomado/drawable/"+_categoryList.get(position).getPhoto()));
+        if(element.getPhoto() != null && !element.getPhoto().isEmpty()){
+            FirebaseService.obtain().download(element.getPhoto(),(response) -> {
+                holder.avatar.setImageBitmap((Bitmap)response);
+            },error -> {
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        }
+
         holder.action.setOnClickListener(v->{
             if(optionsMenuListener != null){
                 optionsMenuListener.onCreateOptionsMenu(holder.action,element,position);

@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +31,6 @@ import androidx.navigation.Navigation;
 import com.example.ecomerce_diplomado.R;
 import com.example.ecomerce_diplomado.data.model.Category;
 import com.example.ecomerce_diplomado.services.FirebaseService;
-import com.example.ecomerce_diplomado.services.Response;
 import com.example.ecomerce_diplomado.utils.PhotoOptions;
 import com.example.ecomerce_diplomado.utils.SystemProperties;
 
@@ -52,6 +53,7 @@ public class CategoryFragmentManager extends Fragment {
     private static final int CHOOSE_GALLERY = 2;
     private static final int TAKE_PHOTO = 3;
     private final String CATEGORY = "CATEGORY";
+    private LinearLayout myProgressBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class CategoryFragmentManager extends Fragment {
             element = bundle.getParcelable(CATEGORY);
         }
         context = getContext();
+        profileDefault = true;
     }
 
     @Override
@@ -72,26 +75,39 @@ public class CategoryFragmentManager extends Fragment {
         save = view.findViewById(R.id.manager);
         back = view.findViewById(R.id.back);
         name = view.findViewById(R.id.nameCat);
-
+        myProgressBar = view.findViewById(R.id.myProgressBar);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final int elementID;
         if(element != null){
             name.setText(element.getName());
+            elementID = element.getId();
+            FirebaseService.obtain().download(element.getPhoto(),(response) -> {
+                profile.setImageBitmap((Bitmap)response);
+            },error -> {
+                Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        }
+        else{
+            elementID = 0;
         }
         back.setOnClickListener(v->{
             Navigation.findNavController(view).navigate(R.id.action_categoryFragmentManager_to_nav_category);
         });
         save.setOnClickListener(v->{
-            String imageUrl = "";
+            myProgressBar.setVisibility(View.VISIBLE);
+            save.setEnabled(false);
             if(!profileDefault){
-                FirebaseService.obtain().upload(uri, String.format("category/%s.jpg", categoryViewModel.getNextid()), (Response) ->{
+                FirebaseService.obtain().upload(uri, String.format("category/%s.jpg", elementID == 0 ?  categoryViewModel.getNextid() : elementID), (Response) ->{
                     saveOrUpdate(view,(String)Response);
                     profileDefault = true;
                 }, (error) -> {
+                    myProgressBar.setVisibility(View.GONE);
+                    save.setEnabled(true);
                     Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
             }else{
@@ -107,14 +123,16 @@ public class CategoryFragmentManager extends Fragment {
 
     private void saveOrUpdate(View view, String imageUrl){
         if(element == null){
-            categoryViewModel.addCategory(name.getText().toString(),imageUrl); //actualizar la imagen desde firebase en el fragmento de categorias
+            categoryViewModel.addCategory(name.getText().toString(),imageUrl);
         }
         else{
             element.setName(name.getText().toString());
-            element.setPhoto(imageUrl);
+            if(imageUrl != null)
+                element.setPhoto(imageUrl);
             categoryViewModel.updateCategoryNotify();
         }
-        Navigation.findNavController(view).navigate(R.id.action_categoryFragmentManager_to_nav_category);
+        if(this.isVisible())
+            Navigation.findNavController(view).navigate(R.id.action_categoryFragmentManager_to_nav_category);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

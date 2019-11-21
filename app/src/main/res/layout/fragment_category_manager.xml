@@ -100,5 +100,8 @@
         </LinearLayout>
 
     </ScrollView>
-
+    <include
+        android:id="@+id/myProgressBar"
+        android:visibility="invisible"
+        layout="@layout/progress_bar"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

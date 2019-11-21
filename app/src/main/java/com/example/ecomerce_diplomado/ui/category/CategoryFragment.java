@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,10 +27,10 @@ import com.example.ecomerce_diplomado.R;
 import com.example.ecomerce_diplomado.data.model.Category;
 import com.example.ecomerce_diplomado.listener.OnItemTouchListener;
 import com.example.ecomerce_diplomado.listener.OptionsMenuListener;
+import com.example.ecomerce_diplomado.services.FirebaseService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.lang.annotation.ElementType;
 
 public class CategoryFragment extends Fragment {
     private int mColumnCount = 2;
@@ -130,7 +128,11 @@ public class CategoryFragment extends Fragment {
                 confirmation.setTitle("Confirmar eliminación")
                 .setMessage("Estas a punto de eliminar un registro, deseas continuar?")
                 .setPositiveButton("Si",(dialog,id)->{
-                    categoryViewModel.removeCategory(category);
+                    FirebaseService.obtain().delete(category.getPhoto(),response->{
+                        categoryViewModel.removeCategory(category);
+                    },error->{
+                        Toast.makeText(context,error.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
                 })
                 .setNegativeButton("No",(dialog, id) -> {
                     dialog.cancel();
