@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProviders;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Matrix;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ecomerce_diplomado.R;
@@ -89,8 +92,13 @@ public class CategoryFragment extends Fragment {
         categoryAdapter.setOnItemTouchListener(new OnItemTouchListener<Category>() {
             @Override
             public void onClick(Category element) {
-                Snackbar.make(getView(),  element.getName(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(getView(),  element.getName(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                ImageView imageView = getView().findViewById(R.id.avatar);
+                Matrix matrix = new Matrix();
+                imageView.setScaleType(ImageView.ScaleType.MATRIX);
+                matrix.postRotate((float) 90, imageView.getPivotX(), imageView.getPivotY());
+                imageView.setImageMatrix(matrix);
             }
         });
          categoryAdapter.setOptionsMenuListener(new OptionsMenuListener<Category>() {
