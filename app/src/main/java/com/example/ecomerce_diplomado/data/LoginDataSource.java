@@ -15,10 +15,10 @@ public class LoginDataSource {
 
         try {
             // TODO: handle loggedInUser authentication
-            if(username.compareTo("guseppe") == 0 && password.compareTo("123456") == 0 ) {
+            if(username.compareTo("guseppe@example.com") == 0 && password.compareTo("123456") == 0 ) {
                 LoggedInUser User = new LoggedInUser(java.util.UUID.randomUUID().toString(), "Guseppe");
                 return new Result.Success<>(User);
-            }else if(username.compareTo("guseppe2") == 0 && password.compareTo("123456") == 0 ) {
+            }else if(username.compareTo("guseppe2@example.com") == 0 && password.compareTo("123456") == 0 ) {
                 LoggedInUser User = new LoggedInUser(java.util.UUID.randomUUID().toString(), "Guseppe2");
                 return new Result.Success<>(User);
             }else{

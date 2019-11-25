@@ -3,7 +3,9 @@ package com.example.ecomerce_diplomado;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.ecomerce_diplomado.data.model.LoggedInUser;
 import com.example.ecomerce_diplomado.ui.login.LoginActivity;
+import com.example.ecomerce_diplomado.utils.usersession.UserSession;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+       // UserSession session = new UserSession(this);
+        //if(session.getLoggedInUser() != null)
+            //Toast.makeText(this,session.getLoggedInUser().getUserId(),Toast.LENGTH_LONG);
     }
 
     @Override

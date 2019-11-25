@@ -1,9 +1,11 @@
 package com.example.ecomerce_diplomado.ui.login;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import android.app.Application;
 import android.util.Patterns;
 
 import com.example.ecomerce_diplomado.data.LoginRepository;
@@ -13,14 +15,17 @@ import com.example.ecomerce_diplomado.R;
 
 import javax.security.auth.login.LoginException;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends AndroidViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
+    private Application _application;
 
-    LoginViewModel(LoginRepository loginRepository) {
+    LoginViewModel(Application application,LoginRepository loginRepository) {
+        super(application);
         this.loginRepository = loginRepository;
+        _application = application;
     }
 
     LiveData<LoginFormState> getLoginFormState() {
@@ -33,6 +38,7 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
+
         Result<LoggedInUser> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
@@ -55,13 +61,11 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder username validation check
     private boolean isUserNameValid(String username) {
-        if (username == null) {
+        if (username == null || username.trim().isEmpty()) {
             return false;
         }
-        if (username.contains("@")) {
+        else{
             return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
         }
     }
 
